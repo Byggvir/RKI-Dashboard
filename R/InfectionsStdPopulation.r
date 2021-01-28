@@ -28,7 +28,7 @@ source("lib/copyright.r")
 source("lib/sql.r")
 
 today <- Sys.Date()
-heute <- format(today, "%Y-%m-%d")
+heute <- format(today, "%Y%m%d")
 
 data <- RunSQL('call InfectionsBundeslandStdBev();')
 
@@ -37,9 +37,9 @@ data[,3] <- round(data[,3],2)
 print(data)
 
 png( paste( 
-      "output/Infections-"
+      "output/"
     ,  heute
-    , "-1.png"
+    , "Infect-1.png"
     , sep = ""
 )
 , width = 1920
@@ -71,7 +71,7 @@ table <- tableGrob(
 )
 
 
-title <- textGrob('Infektionen pro 100.000 Einwohner',gp=gpar(fontsize=50))
+title <- textGrob('Infektionen pro 100k Einwohner',gp=gpar(fontsize=50))
 footnote <- textGrob(paste('Stand:', heute), x=0, hjust=0,
                      gp=gpar( fontface="italic"))
 
@@ -94,7 +94,7 @@ p <- ggplot(data, aes(fill=Bundesland, y=InfectionRatio, x=Bundesland)) +
   geom_bar(position="dodge", stat="identity") +
   geom_text(aes(label=paste('(', Rang, ')\n', InfectionRatio, sep='')), position=position_dodge(width=0.9), vjust=-0.25) +
   scale_fill_viridis(discrete = T) +
-  ggtitle("Corona: Standardisierte Fallzahlen pro 100.000 Einwohner") +
+  ggtitle("Corona: Standardisierte Fallzahlen pro 100k Einwohner") +
   theme_ipsum() +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
   xlab("Bundesländer") +
@@ -106,9 +106,9 @@ plot(gg)
 
 ggsave( plot = gg, 
         file = paste( 
-          "output/Infections-"
-        ,  heute
-        , "-2.png"
+          "output/"
+          ,  heute
+          , "Infect-2.png"
         , sep = ""
         )
        , type = "cairo-png",  bg = "white"

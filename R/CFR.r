@@ -28,7 +28,7 @@ source("lib/copyright.r")
 source("lib/sql.r")
 
 today <- Sys.Date()
-heute <- format(today, "%Y-%m-%d")
+heute <- format(today, "%Y%m%d")
 
 data <- RunSQL('call CFRBundesland();')
 
@@ -37,9 +37,9 @@ data[,3] <- round(data[,3],2)
 print(data)
 
 png( paste( 
-  "output/CFR-"
+  "output/"
   ,  heute
-  , "-1.png"
+  , "CFR-1.png"
   , sep = ""
 )
 , width = 1920
@@ -106,9 +106,9 @@ plot(gg)
 
 ggsave( plot = gg, 
         file = paste( 
-          "output/CFR-"
+          "output/"
           ,  heute
-          , "-2.png"
+          , "CFR-1.png"
           , sep = ""
         )
         , type = "cairo-png",  bg = "white"

@@ -28,7 +28,8 @@ source("lib/copyright.r")
 source("lib/sql.r")
 
 today <- Sys.Date()
-heute <- format(today, "%Y-%m-%d")
+heute <- format(today, "%Y%m%d")
+
 
 data <- RunSQL('call MortalityBundeslandStdBev();')
 
@@ -37,9 +38,9 @@ data[,3] <- round(data[,3],2)
 print(data)
 
 png( paste( 
-      "output/Mortality-"
+      "output/"
     ,  heute
-    , "-1.png"
+    , "Mortality-1.png"
     , sep = ""
 )
 , width = 1920
@@ -106,10 +107,10 @@ plot(gg)
 
 ggsave( plot = gg, 
         file = paste( 
-          "output/Mortality-"
-        ,  heute
-        , "-2.png"
-        , sep = ""
+          "output/"
+          ,  heute
+          , "Mortality-2.png"
+          , sep = ""
         )
        , type = "cairo-png",  bg = "white"
        , width = 29.7, height = 21, units = "cm", dpi = 150)
