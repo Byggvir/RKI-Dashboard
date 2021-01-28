@@ -1,0 +1,7 @@
+-- Setup database RKI
+
+CREATE DATABASE IF NOT EXISTS RKI;
+
+GRANT ALL PRIVILEGES ON RKI.* TO 'rscript'@'localhost';
+
+FLUSH PRIVILEGES;

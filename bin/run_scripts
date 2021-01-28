@@ -1,0 +1,27 @@
+ #!/bin/bash
+ 
+ DEBUG=OFF
+
+# Color for output
+
+red=`tput setaf 1`
+green=`tput setaf 2`
+blue=`tput setaf 4`
+reset=`tput sgr0`
+
+function run_r {
+
+    pushd $HOME/git/R/RKI-Dashboard/R/
+
+    for r in *.r
+    do
+        echo -e "\n\n${blue}+---------"
+        echo -e "| ${red}${r}"
+        echo -e "${blue}+---------${reset}\n\n"
+        Rscript $r
+     done
+    popd
+
+}
+
+run_r

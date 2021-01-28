@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Setup RKI MariaDB
+
+SQL=$(dirname $0)
+echo $SQL
+
+pushd "$SQL"
+cd ../SQL
+cat \
+    setup.sql \
+    CFR.sql \
+    VergleichFall.sql \
+    VergleichTodesfall.sql \
+| mysql --user=root --password
+
+popd
