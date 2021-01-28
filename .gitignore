@@ -1,3 +1,6 @@
+# Don't update new diagrams
+R/Output/*.png
+
 # History files
 .Rhistory
 .Rapp.history
