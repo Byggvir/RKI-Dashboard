@@ -55,7 +55,7 @@ set @i:=0;
 select 
     @i:=@i+1 as Rang
     , Bundesland
-    , AnzahlTodesfall
+    , AnzahlTodesfall as Anzahl
     , Bevoelkerung
 from (
 select 

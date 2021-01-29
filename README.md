@@ -1,4 +1,5 @@
 # RKI-Dashboard
+
 Download and evaluted data from RKI-dashboard with R.
 
 # Setup MariaDb
@@ -6,6 +7,10 @@ Download and evaluted data from RKI-dashboard with R.
 Script: bin/setup
 
 File: SQL/setup.sql
+
+# Requrements for R-srcipts
+
+The Rscript require data from from DESTATIS (12411-0013) in a separate database DESTATIS.
 
 # Stored procedures
 

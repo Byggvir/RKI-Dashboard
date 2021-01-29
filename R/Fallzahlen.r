@@ -1,17 +1,19 @@
 #!/usr/bin/env Rscript
 #
 #
-# Script:  MortalityStdPopulation.r
+# Script: Fallzahlen.r
 #
 # Stand: 2021-01-29
-#
 # (c) 2021 by Thomas Arend, Rheinbach
 # E-Mail: thomas@arend-rhb.de
 #
 
-options(OutDec=',')
+options(
+    scipen = 999
+  , OutDec=',')
 
-MyScriptName <- "MortalityStdPopulation"
+
+MyScriptName <- "Fallzahlen"
 
 require(data.table)
 library(REST)
@@ -31,18 +33,19 @@ source("lib/sql.r")
 today <- Sys.Date()
 heute <- format(today, "%Y%m%d")
 
+data <- RunSQL('call FaelleBundesland;')
 
-data <- RunSQL('call MortalityBundeslandStdBev();')
-
-data[,3] <- round(data[,3],2)
+data[,5] <- round(data[,5]*100,2)
 
 print(data)
 
 png( paste( 
       "output/"
-    ,  heute
-    , "Mortality-1.png"
-    , sep = ""
+      ,  heute
+      , '-'
+      , MyScriptName
+      , '-1.png'
+      , sep = ""
 )
 , width = 1920
 , height = 1080
@@ -65,15 +68,15 @@ tt <- ttheme_default(
     )
   )
 )
-
 table <- tableGrob(
   data
   , theme = tt
-  , cols = c("Rang", "Bundesland", "Tote pro 100k" )
+  , cols = c("Rang", "Bundesland", "Anzahl", "Bevölkerung", "Anteil [%]" )
   , vp = vp
 )
 
-title <- textGrob('Totesfälle pro 100.000 Einwohner',gp=gpar(fontsize=50))
+
+title <- textGrob('Gesamtzahl der Infektionen',gp=gpar(fontsize=50))
 footnote <- textGrob(paste('Stand:', heute), x=0, hjust=0,
                      gp=gpar( fontface="italic"))
 
@@ -92,15 +95,15 @@ grid.draw(table)
 
 dev.off()
 
-p <- ggplot(data, aes(fill=Bundesland, y=Mortality, x=Bundesland)) +
+p <- ggplot(data, aes(fill=Bundesland, y=Anzahl, x=Bundesland)) +
   geom_bar(position="dodge", stat="identity") +
-  geom_text(aes(label=paste(Mortality, ' (', Rang, ')', sep='')), size=2, position=position_dodge(width=0.9), vjust=-0.25) +
+  geom_text(aes(label=Anzahl), size=2.5, position=position_dodge(width=0.9), vjust=-0.25) +
   scale_fill_viridis(discrete = T) +
-  ggtitle("Corona: Standardisierte Todesfälle pro 100.000 Einwohner") +
+  ggtitle("Corona: Fallzahlen absolut") +
   theme_ipsum() +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
   xlab("Bundesländer") +
-  ylab("Insgesamt gemeldete Todesfälle pro 100.000")
+  ylab("Insgesamt gemeldete Fälle")
 
 gg <- grid.arrange(p, ncol=1)
 
@@ -110,8 +113,10 @@ ggsave( plot = gg,
         file = paste( 
           "output/"
           ,  heute
-          , "Mortality-2.png"
-          , sep = ""
+          , '-'
+          , MyScriptName
+          , "-2.png"
+        , sep = ""
         )
        , type = "cairo-png",  bg = "white"
        , width = 29.7, height = 21, units = "cm", dpi = 150)

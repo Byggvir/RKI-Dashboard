@@ -1,16 +1,16 @@
 #!/usr/bin/env Rscript
 #
 #
-# Script: RKI_RegressionAnalysis.r
+# Script: CFR.r
 #
-# Stand: 2020-10-21
-# (c) 2020 by Thomas Arend, Rheinbach
+# Stand: 2021-01-29
+# (c) 2021 by Thomas Arend, Rheinbach
 # E-Mail: thomas@arend-rhb.de
 #
 
-options(OutDec=',')
+options( )
 
-MyScriptName <- "InfectionsStdPopulation"
+MyScriptName <- "CFR"
 
 require(data.table)
 library(REST)
@@ -39,7 +39,10 @@ print(data)
 png( paste( 
   "output/"
   ,  heute
-  , "CFR-1.png"
+  , '-'
+  , MyScriptName
+  , '-1.png'
+  
   , sep = ""
 )
 , width = 1920
@@ -92,7 +95,7 @@ dev.off()
 
 p <- ggplot(data, aes(fill=Bundesland, y=CFR, x=Bundesland)) +
   geom_bar(position="dodge", stat="identity") +
-  geom_text(aes(label=paste('(', Rang, ')\n', CFR, sep='')), position=position_dodge(width=0.9), vjust=-0.25) +
+  geom_text(aes(label=paste( CFR,' (', Rang, ')', sep='')), size=3, position=position_dodge(width=0.9), vjust=-0.25) +
   scale_fill_viridis(discrete = T) +
   ggtitle("Corona: Rohe CFR") +
   theme_ipsum() +
@@ -108,7 +111,9 @@ ggsave( plot = gg,
         file = paste( 
           "output/"
           ,  heute
-          , "CFR-1.png"
+          , '-'
+          , MyScriptName
+          , '-2.png'
           , sep = ""
         )
         , type = "cairo-png",  bg = "white"

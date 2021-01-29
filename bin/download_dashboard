@@ -62,7 +62,7 @@ B=''
 
 # ObjectId is sometimes in the first column sometime before Meldedatum
 
-head -n 1 "$DASHDEST" | grep '^ObjectId' && A='ObjectId INT ,' || B=', ObjectId INT' 
+head -n 1 "$DASHDEST" | egrep '^(ObjectId|FID)' && A='ObjectId INT ,' || B=', ObjectId INT' 
 
 ( cat <<EOF
 USE RKI;
@@ -140,4 +140,4 @@ touch "$SQL"
 download
 dashboard
 
-mysql --user=root --password < "$SQL"
+mysql --user=rscript --password=rscript < "$SQL"

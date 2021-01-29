@@ -12,7 +12,7 @@ set @i:=0;
 select 
     @i:=@i+1 as Rang
     , Bundesland
-    , AnzahlFall
+    , AnzahlFall as Anzahl
     , Bevoelkerung
     , InfectionRatio
 from (
@@ -20,7 +20,7 @@ select
       A.IdBundesland
     , B.Bundesland as Bundesland
     , Altersgruppe
-    , sum(A.AnzahlFall) as AnzahlFall
+    , sum(A.AnzahlFall) as Anzahlfall
     , D.Anzahl as Bevoelkerung
     , sum(A.AnzahlFall)/D.Anzahl as InfectionRatio
 from Faelle as A 
@@ -58,7 +58,7 @@ set @i:=0;
 select 
     @i:=@i+1 as Rang
     , Bundesland
-    , AnzahlFall
+    , AnzahlFall as Anzahl
     , Bevoelkerung
 from (
 select 

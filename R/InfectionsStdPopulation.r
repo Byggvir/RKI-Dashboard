@@ -1,7 +1,7 @@
 #!/usr/bin/env Rscript
 #
 #
-# Script: RKI_RegressionAnalysis.r
+# Script: InfectionsStdPopulation.r
 #
 # Stand: 2020-10-21
 # (c) 2020 by Thomas Arend, Rheinbach
@@ -38,9 +38,11 @@ print(data)
 
 png( paste( 
       "output/"
-    ,  heute
-    , "Infect-1.png"
-    , sep = ""
+      ,  heute
+      , '-'
+      , MyScriptName
+      , "-1.png"
+      , sep = ""
 )
 , width = 1920
 , height = 1080
@@ -92,7 +94,7 @@ dev.off()
 
 p <- ggplot(data, aes(fill=Bundesland, y=InfectionRatio, x=Bundesland)) +
   geom_bar(position="dodge", stat="identity") +
-  geom_text(aes(label=paste('(', Rang, ')\n', InfectionRatio, sep='')), position=position_dodge(width=0.9), vjust=-0.25) +
+  geom_text(aes(label=paste(InfectionRatio, ' (', Rang, ')', sep='')), size=2.5, position=position_dodge(width=0.9), vjust=-0.25) +
   scale_fill_viridis(discrete = T) +
   ggtitle("Corona: Standardisierte Fallzahlen pro 100k Einwohner") +
   theme_ipsum() +
@@ -108,7 +110,9 @@ ggsave( plot = gg,
         file = paste( 
           "output/"
           ,  heute
-          , "Infect-2.png"
+          , '-'
+          , MyScriptName
+          , "-2.png"
         , sep = ""
         )
        , type = "cairo-png",  bg = "white"
