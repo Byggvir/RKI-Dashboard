@@ -1,5 +1,6 @@
 # Don't update new diagrams
 R/output/*.png
+R/lib/mariadb.cnf
 SQL/rki.cnf
 SQL/setup.sql
 
