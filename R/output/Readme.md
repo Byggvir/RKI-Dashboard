@@ -1,0 +1,1 @@
+# Outpit directory for diagrams 
