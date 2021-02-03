@@ -73,8 +73,8 @@ table <- tableGrob(
   , vp = vp
 )
 
-title <- textGrob('Totesfälle pro 100.000 Einwohner',gp=gpar(fontsize=50))
-footnote <- textGrob(paste('Stand:', heute), x=0, hjust=0,
+title <- textGrob('Todesfälle Bundesländer',gp=gpar(fontsize=50))
+footnote <- textGrob(paste('Altersstandadisierte Todesfälle pro 1000 Einwohner. Stand:', heute), x=0, hjust=0,
                      gp=gpar( fontface="italic"))
 
 padding <- unit(0.5,"line")
@@ -100,7 +100,7 @@ p <- ggplot(data, aes(fill=Bundesland, y=Mortality, x=Bundesland)) +
   theme_ipsum() +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
   xlab("Bundesländer") +
-  ylab("Insgesamt gemeldete Todesfälle pro 100.000")
+  ylab("Standardisierte Todesfälle pro 100.000")
 
 gg <- grid.arrange(p, ncol=1)
 

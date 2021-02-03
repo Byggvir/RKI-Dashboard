@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DEBUG=OFF
+DEBUG=ON
 
 # Color for output
 
@@ -62,7 +62,15 @@ B=''
 
 # ObjectId is sometimes in the first column sometime before Meldedatum
 
-head -n 1 "$DASHDEST" | egrep '^(ObjectId|FID)' && A='ObjectId INT ,' || B=', ObjectId INT' 
+head -n 1 "$DASHDEST" | grep ',ObjectId'
+if [ $? -eq 0 ]
+then
+    A=''
+    B=', ObjectId INT'
+else
+    A='ObjectId INT ,'
+    B=''
+fi
 
 ( cat <<EOF
 USE RKI;
