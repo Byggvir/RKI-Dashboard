@@ -1,5 +1,7 @@
 # Don't update new diagrams
 R/output/*.png
+SQL/rki.cnf
+SQL/setup.sql
 
 # History files
 .Rhistory
